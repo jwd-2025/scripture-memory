@@ -65,7 +65,7 @@ export default function Practice() {
   const current = queue[index]
 
   return (
-    <div className="flex flex-col h-screen max-w-lg mx-auto">
+    <div className="flex flex-col max-w-lg mx-auto" style={{ height: '100dvh' }}>
       {/* Progress bar */}
       <div className="h-1 bg-slate-100">
         <div
