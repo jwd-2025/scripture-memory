@@ -7,13 +7,20 @@ export default function Settings() {
   const [username, setUsername] = useState(profile?.username ?? '')
   const [saving,   setSaving]   = useState(false)
   const [saved,    setSaved]    = useState(false)
+  const [error,    setError]    = useState('')
 
   async function handleSave(e) {
     e.preventDefault()
-    setSaving(true); setSaved(false)
-    await updateProfile({ bible_version: version, username })
-    setSaving(false); setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+    setSaving(true); setSaved(false); setError('')
+    try {
+      await updateProfile({ bible_version: version, username })
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2000)
+    } catch (err) {
+      setError(err.message || 'Failed to save. Check the console for details.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -21,6 +28,11 @@ export default function Settings() {
       <h1 className="text-xl font-bold text-slate-800">Settings</h1>
 
       <form onSubmit={handleSave} className="bg-white border border-slate-100 rounded-2xl p-5 space-y-4">
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-3 py-2">
+            {error}
+          </div>
+        )}
         <div>
           <label className="text-sm font-medium text-slate-600 mb-1 block">Your name</label>
           <input

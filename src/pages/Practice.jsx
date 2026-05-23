@@ -10,6 +10,16 @@ export default function Practice() {
   const [queue,   setQueue]   = useState([])
   const [index,   setIndex]   = useState(0)
   const [loading, setLoading] = useState(true)
+  const [vpHeight, setVpHeight] = useState(window.visualViewport?.height ?? window.innerHeight)
+
+  // Track actual visible height as keyboard appears/disappears
+  useEffect(() => {
+    const vv = window.visualViewport
+    if (!vv) return
+    const update = () => setVpHeight(vv.height)
+    vv.addEventListener('resize', update)
+    return () => vv.removeEventListener('resize', update)
+  }, [])
 
   useEffect(() => {
     loadQueue()
@@ -65,7 +75,7 @@ export default function Practice() {
   const current = queue[index]
 
   return (
-    <div className="flex flex-col max-w-lg mx-auto" style={{ height: '100dvh' }}>
+    <div className="flex flex-col max-w-lg mx-auto" style={{ height: `${vpHeight}px` }}>
       {/* Progress bar */}
       <div className="h-1 bg-slate-100">
         <div

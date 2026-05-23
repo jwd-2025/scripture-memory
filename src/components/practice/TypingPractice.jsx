@@ -26,8 +26,8 @@ export default function TypingPractice({ userVerse, onComplete }) {
   const [saving,       setSaving]       = useState(false)
 
   const inputRef       = useRef(null)
-  const currentWordRef = useRef(null)  // ref on the active word span
-  const verseScrollRef = useRef(null)  // ref on the scrollable verse container
+  const currentWordRef = useRef(null)
+  const verseScrollRef = useRef(null)
 
   const currentWordIndex = typedSoFar.length
   const currentWord      = words[currentWordIndex] ?? ''
@@ -39,23 +39,20 @@ export default function TypingPractice({ userVerse, onComplete }) {
 
   // Scroll current word into view whenever it advances
   useEffect(() => {
-    if (currentWordRef.current && verseScrollRef.current) {
-      const container = verseScrollRef.current
-      const el        = currentWordRef.current
-      const elTop     = el.offsetTop
-      const elBottom  = elTop + el.offsetHeight
-      const cTop      = container.scrollTop
-      const cBottom   = cTop + container.clientHeight
-
-      // Scroll so the current word is comfortably in the middle of the visible area
-      if (elTop < cTop + 40 || elBottom > cBottom - 40) {
-        container.scrollTo({
-          top: elTop - container.clientHeight / 2,
-          behavior: 'smooth',
-        })
-      }
-    }
+    currentWordRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }, [currentWordIndex])
+
+  // Handle iOS Safari keyboard resize via visualViewport
+  useEffect(() => {
+    const vv = window.visualViewport
+    if (!vv) return
+    function onResize() {
+      // Scroll current word into view when keyboard appears/disappears
+      currentWordRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+    vv.addEventListener('resize', onResize)
+    return () => vv.removeEventListener('resize', onResize)
+  }, [])
 
   function handleInput(e) {
     const val = e.target.value
