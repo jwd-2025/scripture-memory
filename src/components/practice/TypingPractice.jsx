@@ -62,17 +62,14 @@ export default function TypingPractice({ userVerse, onComplete }) {
       setHintActive(false)
       return
     }
+    // Space or newline = user is done with this word, validate now
     if (val.endsWith(' ') || val.endsWith('\n')) {
       submitWord(val.trim())
       return
     }
+    // Just update display — no validation until spacebar
     setCurrentInput(val)
-    if (val.length >= currentWord.length) {
-      setIsWrong(!wordsMatch(val, currentWord))
-      if (!wordsMatch(val, currentWord)) setErrorCount(c => c + 1)
-    } else {
-      setIsWrong(false)
-    }
+    setIsWrong(false)
   }
 
   function handleKeyDown(e) {
