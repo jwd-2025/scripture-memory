@@ -186,26 +186,46 @@ function Section({ title, count, action, empty, collapsible, children }) {
 }
 
 function VerseCard({ uv, mastered, onClick }) {
+  const [revealed, setRevealed] = useState(false)
   const ref = `${uv.verses.books.name} ${uv.verses.chapter}:${uv.verses.verse}`
-  const preview = uv.verses.text.length > 80
-    ? uv.verses.text.slice(0, 80) + '…'
-    : uv.verses.text
+
+  function handleReveal(e) {
+    e.stopPropagation()
+    setRevealed(r => !r)
+  }
 
   return (
-    <div
-      onClick={onClick}
-      className="bg-white border border-slate-100 rounded-2xl p-4 cursor-pointer hover:shadow-md hover:border-brand-200 transition-all active:scale-[0.99]"
-    >
+    <div className="bg-white border border-slate-100 rounded-2xl p-4 hover:shadow-md hover:border-brand-200 transition-all">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-brand-700 mb-1">{ref}</p>
-          <p className="text-sm text-slate-600 font-serif leading-snug">{preview}</p>
+          {/* Reference row */}
+          <div className="flex items-center gap-2 mb-1">
+            <p className="text-xs font-semibold text-brand-700">{ref}</p>
+            <button
+              onClick={handleReveal}
+              className="text-[10px] text-slate-400 hover:text-slate-600 border border-slate-200 rounded px-1.5 py-0.5 transition-colors"
+            >
+              {revealed ? 'Hide' : 'Peek'}
+            </button>
+          </div>
+          {/* Verse text — only shown when revealed */}
+          {revealed && (
+            <p className="text-sm text-slate-600 font-serif leading-snug">{uv.verses.text}</p>
+          )}
         </div>
-        {mastered ? (
-          <span className="text-lg flex-shrink-0">🏆</span>
-        ) : (
-          <CleanRunPips count={uv.clean_run_count} needed={3} />
-        )}
+        <div className="flex flex-col items-end gap-2 flex-shrink-0">
+          {mastered ? (
+            <span className="text-lg">🏆</span>
+          ) : (
+            <CleanRunPips count={uv.clean_run_count} needed={3} />
+          )}
+          <button
+            onClick={onClick}
+            className="text-[10px] bg-brand-600 text-white rounded-lg px-2.5 py-1 font-semibold hover:bg-brand-700 transition-colors"
+          >
+            Practice
+          </button>
+        </div>
       </div>
     </div>
   )
