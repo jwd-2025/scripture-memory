@@ -276,21 +276,7 @@ export default function SetManager() {
                         </p>
                       ) : (
                         filteredVerses.map(v => (
-                          <button
-                            key={v.id}
-                            onClick={() => addVerseToSet(v.id)}
-                            className="w-full text-left px-3 py-2 rounded-lg hover:bg-brand-50 transition-colors group"
-                          >
-                            <div className="flex items-start gap-2">
-                              <span className="text-xs font-semibold text-brand-600 flex-shrink-0 mt-0.5">
-                                {v.books?.name} {v.chapter}:{v.verse}
-                              </span>
-                              <span className="text-xs text-slate-500 font-serif line-clamp-2 flex-1">
-                                {v.text}
-                              </span>
-                              <span className="text-xs text-brand-400 opacity-0 group-hover:opacity-100 flex-shrink-0">+ Add</span>
-                            </div>
-                          </button>
+                          <VersePickerRow key={v.id} verse={v} onAdd={() => addVerseToSet(v.id)} />
                         ))
                       )}
                     </div>
@@ -319,6 +305,41 @@ export default function SetManager() {
             </div>
           ))}
         </div>
+      )}
+    </div>
+  )
+}
+
+function VersePickerRow({ verse, onAdd }) {
+  const [expanded, setExpanded] = useState(false)
+  const ref = `${verse.books?.name} ${verse.chapter}:${verse.verse}`
+
+  return (
+    <div className="rounded-lg border border-transparent hover:border-slate-100 transition-colors">
+      <div className="flex items-center gap-2 px-3 py-2">
+        {/* Reference — tap to expand */}
+        <button
+          type="button"
+          onClick={() => setExpanded(e => !e)}
+          className="flex-1 text-left flex items-center gap-1"
+        >
+          <span className="text-xs font-semibold text-brand-700">{ref}</span>
+          <span className="text-[10px] text-slate-400">{expanded ? '▾' : '▸'}</span>
+        </button>
+        {/* Add button */}
+        <button
+          type="button"
+          onClick={onAdd}
+          className="flex-shrink-0 text-xs text-brand-600 font-semibold hover:text-brand-800 border border-brand-200 rounded px-2 py-0.5 hover:bg-brand-50 transition-colors"
+        >
+          + Add
+        </button>
+      </div>
+      {/* Expanded verse text */}
+      {expanded && (
+        <p className="text-xs text-slate-600 font-serif px-3 pb-2 leading-relaxed">
+          {verse.text}
+        </p>
       )}
     </div>
   )
