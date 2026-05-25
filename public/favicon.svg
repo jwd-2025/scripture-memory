@@ -1,0 +1,41 @@
+<svg width="512" height="512" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="680" height="680" rx="140" fill="#0c4a6e"/>
+
+  <!-- Subtle radial glow behind cross -->
+  <ellipse cx="340" cy="240" rx="120" ry="110" fill="#0e6faa" opacity="0.5"/>
+
+  <!-- Open Bible pages — left page -->
+  <path d="M180 370 Q180 500 340 510 L340 310 Q260 300 180 320 Z" fill="#f0f9ff"/>
+  <line x1="210" y1="360" x2="320" y2="355" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="210" y1="385" x2="320" y2="381" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="210" y1="410" x2="320" y2="407" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="210" y1="435" x2="320" y2="433" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="210" y1="460" x2="320" y2="459" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Open Bible pages — right page -->
+  <path d="M500 370 Q500 500 340 510 L340 310 Q420 300 500 320 Z" fill="#e0f2fe"/>
+  <line x1="470" y1="360" x2="360" y2="355" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="470" y1="385" x2="360" y2="381" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="470" y1="410" x2="360" y2="407" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="470" y1="435" x2="360" y2="433" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+  <line x1="470" y1="460" x2="360" y2="459" stroke="#bae6fd" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Spine -->
+  <line x1="340" y1="310" x2="340" y2="510" stroke="#7dd3fc" stroke-width="4" opacity="0.6"/>
+
+  <!-- Bible cover shadow -->
+  <ellipse cx="340" cy="516" rx="165" ry="14" fill="#075985" opacity="0.5"/>
+
+  <!-- Cross vertical beam -->
+  <rect x="322" y="110" width="36" height="190" rx="8" fill="#fbbf24"/>
+  <!-- Cross horizontal beam -->
+  <rect x="262" y="168" width="156" height="36" rx="8" fill="#fbbf24"/>
+
+  <!-- Cross highlights -->
+  <rect x="330" y="118" width="20" height="174" rx="5" fill="#fcd34d" opacity="0.5"/>
+  <rect x="270" y="176" width="140" height="20" rx="5" fill="#fcd34d" opacity="0.5"/>
+
+  <!-- Heart -->
+  <path d="M330 488 Q330 478 340 484 Q350 478 350 488 Q350 496 340 502 Q330 496 330 488 Z" fill="#7dd3fc"/>
+</svg>
